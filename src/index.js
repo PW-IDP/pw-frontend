@@ -14,6 +14,8 @@ root.render(
       clientId={authSettings.clientId}
       redirectUri={window.location.origin}
       audience={authSettings.audience}
+      // useRefreshTokens={true}
+      redirectUri={window.location.origin}
       // scope="project:admin"
     >
       <App />
