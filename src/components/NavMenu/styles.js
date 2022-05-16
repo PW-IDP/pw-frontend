@@ -17,8 +17,8 @@ export default makeStyles((theme) => ({
         top:0,
         left:0,
         height: '100%',
-        width: 200,
-        [theme.breakpoints.up('md')]: {
+        width: 220,
+        [theme.breakpoints.up('sm')]: {
             width: 300,
         }
     },
