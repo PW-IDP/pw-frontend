@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { ShoppingBag } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authSettings } from "../common/AuthSettings";
@@ -25,12 +25,12 @@ const UserWrapper = ({ children }) => {
         },
         {
             name: 'My Sharings',
-            link: '/sharings',
+            link: '/my-sharings',
             icon: MedicalHouse
         },
         {
             name: 'My Bookings',
-            link: '/bookings',
+            link: '/my-bookings',
             icon: Book
         }
     ]
@@ -44,7 +44,7 @@ const UserWrapper = ({ children }) => {
     return (
         <div>
             <NavMenu options={userPages}/>
-            <Grid container justifyContent='flex-start' spacing={4}>
+            <Grid container justifyContent='flex-start' spacing={0}>
                 <Grid item key='navMenu' className={classes.navGrid}>
                 </Grid>
                 <Grid item key='content' xs>
