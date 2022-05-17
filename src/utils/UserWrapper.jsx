@@ -8,6 +8,7 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import MedicalHouse from "../assets/fa6-solid_house-medical-flag.svg"
 import Home from "../assets/ant-design_home-filled.svg"
 import Book from "../assets/ant-design_book-filled.svg"
+import Chart from "../assets/uil_chart-growth.svg"
 
 import useStyles from './styles';
 
@@ -32,6 +33,11 @@ const UserWrapper = ({ children }) => {
             name: 'My Bookings',
             link: '/my-bookings',
             icon: Book
+        },
+        {
+            name: 'My Statistics',
+            link: '/my-statistics',
+            icon: Chart
         }
     ]
   

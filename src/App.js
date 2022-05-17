@@ -12,6 +12,7 @@ import Statistics from './components/Admin/Statistics/Statistics';
 import Users from './components/Admin/Users/Users';
 import MySharings from './components/User/MySharings/MySharings';
 import MyBookings from './components/User/MyBookings/MyBookings';
+import MyStatistics from './components/User/MyStatistics/MyStatistics';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                         <Route exact path='/' element={<Home />} />
                         <Route exact path='/my-sharings' element={<MySharings />} />
                         <Route exact path='/my-bookings' element={<MyBookings />} />
+                        <Route exact path='/my-statistics' element={<MyStatistics />} />
 
                         <Route exact path='/admin/statistics' element={<Statistics />} />
                         <Route exact path='/admin/users' element={<Users />} />

@@ -4,16 +4,16 @@ import UserWrapper from '../../../utils/UserWrapper'
 
 import useStyles from './styles';
 
-const MySharings = () => {
+const MyStatistics = () => {
     const classes = useStyles();
 
     return (
         <UserWrapper>
             <Paper sx={{p: 5 }}>
-                <Typography>USER SHARINGS</Typography>
+                <Typography>USER STATISTICS</Typography>
             </Paper>
         </UserWrapper>
     )
 }
 
-export default MySharings
+export default MyStatistics
