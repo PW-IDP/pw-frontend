@@ -4,7 +4,7 @@ import React from 'react'
 import useStyles from './styles';
 
 
-const OfferBox = ({ title, name, email, persons, county, city, address, description, infoLines, buttonText, buttonOnClick }) => {
+const OfferBox = ({ title, name, email, persons, county, city, address, description, infoLines, buttonText, buttonColor, buttonOnClick }) => {
     const classes = useStyles();
 
     return (
@@ -15,14 +15,14 @@ const OfferBox = ({ title, name, email, persons, county, city, address, descript
             <Typography sx={{mb: 4}}>County {county}, City {city}</Typography>
             <Typography sx={{mb: 4}}>Address: {address}</Typography>
             <Typography sx={{mt: 8}}>{description}</Typography>
-            <Box sx={{mt: 8, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', py: 4, pl: 10, pr: 20}}  borderRadius={1} bgcolor="section.main">
+            <Box sx={{mt: 8, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pl: 10, pr: 20, height: 70}}  borderRadius={1} bgcolor="section.main">
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     {infoLines && infoLines.map((line, i) => (
                         <Typography key={`${i}_Typography`}>{line}</Typography>
                     ))}
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    {buttonText && <Button sx={{width:80, height: 40}} variant='contained' onClick={buttonOnClick}>Accept</Button>}
+                    {buttonText && <Button sx={{width:80, height: 40}} color={buttonColor} variant='contained' onClick={buttonOnClick}>{buttonText}</Button>}
                 </Box>
             </Box>
         </Box>

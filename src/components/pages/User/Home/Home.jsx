@@ -92,7 +92,9 @@ const Home = () => {
                         city={city}
                         address={address}
                         description={description}
+
                         buttonText="Accept"
+                        buttonColor="primary"
                         buttonOnClick={() => {acceptOffer(title, email)}}
                         />
                 ))}
