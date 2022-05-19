@@ -6,12 +6,12 @@ import { useForm } from 'react-hook-form';
 import useStyles from './styles';
 
 const formFields = [
-    {name: "title", label: "Title"},
+    {name: "name", label: "Name"},
     {name: "address", label: "Address"},
     {name: "county", label: "County"},
     {name: "city", label: "City"},
-    {name: "minPersons", label: "Min. Persons"},
-    {name: "maxPersons", label: "Max. Persons"},
+    {name: "minCapacity", label: "Min. Capacity"},
+    {name: "maxCapacity", label: "Max. Capacity"},
 ]
 
 const AddOfferForm = ({ openModal, onClose, addOfferHandler }) => {
@@ -32,18 +32,18 @@ const AddOfferForm = ({ openModal, onClose, addOfferHandler }) => {
                                         fullWidth
                                         label={field.label}
                                         required
+                                        inputProps={{ style: { backgroundColor: "#FFFFFF" } }}
                                     />
                                 </Grid>
                             ))}
 
-                            <Grid item sx={{p: 1}} xs={12} key='description'>
+                            <Grid item xs={12} key='description'>
                                 <TextField
                                     multiline
                                     {...register('description', { required: true })}
                                     rows={4}
                                     placeholder="Description"
                                     fullWidth
-                                    required
                                 />
                             </Grid>
                             <Grid item xs={12} key='submit'>
