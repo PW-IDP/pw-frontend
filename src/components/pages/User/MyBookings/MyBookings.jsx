@@ -71,7 +71,7 @@ const Home = () => {
 
     return (
         <UserWrapper>
-            <Box className={classes.container} bgcolor="contentBackground.main">
+            <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
                 {bookings.map(({ title, name, email, minPersons, maxPersons, county, city, address, description, startDate, endDate}, i) => (
                     endDate ?
                     <OfferBox key={`${i}_${title}`}

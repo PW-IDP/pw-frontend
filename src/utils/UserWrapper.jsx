@@ -53,7 +53,9 @@ const UserWrapper = ({ children }) => {
             <Grid container justifyContent='flex-start' spacing={0}>
                 <Grid item key='navMenu' className={classes.navGrid} />
                 <Grid item key='content' xs>
-                    {children}
+                    <Box className={classes.fullHeight}>
+                        {children}
+                    </Box>
                 </Grid>
             </Grid>
         </Box>

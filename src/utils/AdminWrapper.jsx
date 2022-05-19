@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { ShoppingBag } from "@mui/icons-material";
 import { Grid, Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +41,9 @@ const AdminWrapper = ({ children }) => {
                 <Grid item key='navMenu' className={classes.navGrid}>
                 </Grid>
                 <Grid item key='content' xs>
-                    {children}
+                    <Box className={classes.fullHeight}>
+                        {children}
+                    </Box>
                 </Grid>
             </Grid>
         </Box>

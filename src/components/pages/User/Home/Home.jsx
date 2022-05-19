@@ -81,7 +81,7 @@ const Home = () => {
     return (
         <UserWrapper>
             <AddOfferForm openModal={openModal} onClose={() => setOpenModal(false)} addOfferHandler={addOffer}/>
-            <Box className={classes.container} bgcolor="contentBackground.main">
+            <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
                 {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}

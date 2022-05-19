@@ -3,7 +3,8 @@ import { makeStyles } from '@mui/styles';
 export default makeStyles((theme) => ({
     container: {
         margin: 'auto',
-        padding: theme.spacing(5, 1),
+        overflowY: 'auto',
+        height: `calc(100vh - ${40}px)`,
         width: 250,
         [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(5),

@@ -7,4 +7,8 @@ export default makeStyles((theme) => ({
             width: 300,
         },
     },
+    fullHeight: {
+        height: '100vh',
+        overflowY: 'hidden'
+    }
 }));
