@@ -1,9 +1,9 @@
 import { Add } from '@mui/icons-material';
-import { Box, Button, Paper, Modal, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
-import AddOfferForm from '../../../modals/AddOfferForm/AddOfferForm';
+import AddOfferForm from '../../../modals/AddOfferForm/AddOfferModal';
 
 import useStyles from './styles';
 
@@ -80,11 +80,7 @@ const Home = () => {
 
     return (
         <UserWrapper>
-            <Modal open={openModal} onClose={() => setOpenModal(false)} >
-                <Box className={classes.modal} >
-                    <AddOfferForm addOfferHandler={addOffer}/>
-                </Box>
-            </Modal>
+            <AddOfferForm openModal={openModal} onClose={() => setOpenModal(false)} addOfferHandler={addOffer}/>
             <Box className={classes.container} bgcolor="contentBackground.main">
                 {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
