@@ -20,7 +20,7 @@ const AddOfferForm = ({ addOfferHandler }) => {
     const { register, handleSubmit } = useForm();
 
     return (
-        <Box className={classes.addBorder} bgcolor={'white'} sx={{width: 1, height: 1}}>
+        <Box className={classes.addBorder} bgcolor='content.main' sx={{width: 1, height: 1}}>
             <div className={classes.container}>
                 <form onSubmit={handleSubmit((data) => addOfferHandler(data))}>
                     <Grid container spacing={3}>
@@ -36,12 +36,13 @@ const AddOfferForm = ({ addOfferHandler }) => {
                         ))}
 
                         <Grid item sx={{p: 1}} xs={12} key='description'>
-                            <TextareaAutosize
+                            <TextField
+                                multiline
                                 {...register('description', { required: true })}
-                                minRows={6}
-                                maxRows={10}
+                                rows={4}
                                 placeholder="Description"
-                                style={{ width: '100%'}}
+                                fullWidth
+                                required
                             />
                         </Grid>
                         <Grid item xs={12} key='submit'>
