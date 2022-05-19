@@ -1,7 +1,9 @@
-import { Box } from '@mui/material'
+import { Add } from '@mui/icons-material';
+import { Box, Button, Paper, Modal, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import OfferBox from '../../../utils/OfferBox/OfferBox';
 import UserWrapper from '../../../utils/UserWrapper'
+import AddOfferForm from './AddOfferForm/AddOfferForm';
 
 import useStyles from './styles';
 
@@ -9,7 +11,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'persons': [3, 5],
+    'minPersons': 3,
+    'minPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -18,7 +21,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'persons': [3, 5],
+    'minPersons': 3,
+    'minPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -27,7 +31,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'persons': [3, 5],
+    'minPersons': 3,
+    'minPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -36,7 +41,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'persons': [3, 5],
+    'minPersons': 3,
+    'minPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -45,7 +51,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'persons': [3, 5],
+    'minPersons': 3,
+    'minPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -56,6 +63,7 @@ const mockOffers = [{
 
 const Home = () => {
     const classes = useStyles();
+    const [openModal, setOpenModal] = useState(false);
     const [offers, setOffers] = useState([])
 
     useEffect(() => {
@@ -66,15 +74,24 @@ const Home = () => {
         console.log(id, email)
     }
 
+    const addOffer = (data) => {
+        console.log(data)
+    }
+
     return (
         <UserWrapper>
+            <Modal open={openModal} onClose={() => setOpenModal(false)} >
+                <Box className={classes.modal} >
+                    <AddOfferForm addOfferHandler={addOffer}/>
+                </Box>
+            </Modal>
             <Box className={classes.container} bgcolor="primary.main">
-                {offers.map(({ title, name, email, persons, county, city, address, description}, i) => (
+                {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
                         email={email}
-                        persons={persons}
+                        persons={[minPersons, maxPersons]}
                         county={county}
                         city={city}
                         address={address}
@@ -84,6 +101,11 @@ const Home = () => {
                         />
                 ))}
             </Box>
+            <div className={classes.addButtonContainer}>
+                <Button className={classes.addButton} variant="contained" sx={{borderRadius: 100}} onClick={() => setOpenModal(true)}>
+                    <Add fontSize="large" />
+                </Button>
+            </div>
         </UserWrapper>
     )
 }
