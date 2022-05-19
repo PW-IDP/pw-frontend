@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { ShoppingBag } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authSettings } from "../common/AuthSettings";
@@ -36,7 +36,7 @@ const AdminWrapper = ({ children }) => {
     }, [user]);
   
     return (
-        <div>
+        <Box bgcolor="background.main">
             <NavMenu options={adminPages}/>
             <Grid container justifyContent='flex-start' spacing={4}>
                 <Grid item key='navMenu' className={classes.navGrid}>
@@ -45,7 +45,7 @@ const AdminWrapper = ({ children }) => {
                     {children}
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     );
   };
   

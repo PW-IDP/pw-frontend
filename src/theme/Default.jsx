@@ -1,18 +1,27 @@
 
 import { createTheme } from '@mui/material/styles'
-import {blue, red, grey} from '@mui/material/colors';
 
 export const defaultTheme = createTheme({
     spacing: 4,
     palette: {
         primary: {
-            main: blue[500],
-        },
-        navButton: {
-            main: grey[400],
+            main: "#2155CD",
         },
         secondary: {
-            main: red[500],
+            main: "#F44336",
+        },
+
+        background: {
+            main: "#E8F9FD"
+        },
+        content: {
+            main: "#E1FFFF"
+        },
+        contentBackground: {
+            main: "#79DAE8"
+        },
+        section: {
+            main: "#61BEE3"
         },
     },
     typography: {

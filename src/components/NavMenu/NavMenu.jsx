@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Logout from "../../assets/ic_outline-log-out.svg"
+import Logo from "../../assets/icons8-home-bzzricon-flat-96.png"
 import useStyles from './styles';
 
 const NavMenu = ({ options }) => {
@@ -11,9 +12,11 @@ const NavMenu = ({ options }) => {
     const { user, logout } = useAuth0();
 
     return (
-        <Box sx={{pt: 24}} bgcolor="primary.main" className={classes.navMenu}>
-            <Box sx={{mb: 12, px: 3}}>
-                <Avatar src={user.picture} alt={user.name} sx={{width: 50, height: 50}}></Avatar>
+        <Box bgcolor="contentBackground.main" className={classes.navMenu}>
+            <Box sx={{mb: 8}}>
+                <img className={classes.logoIcon} src={Logo} alt="Logo" />
+            </Box>
+            <Box sx={{mb: 8, px: 3}}>
                 <Typography align='left' sx={{width: 1}}>{user.name}</Typography>
                 <Typography align='left' sx={{width: 1}}>{user.email}</Typography>
             </Box>
@@ -26,7 +29,7 @@ const NavMenu = ({ options }) => {
                         component={Link}
                         to={link}
                         variant="contained"
-                        color="navButton"
+                        color="primary"
                     >
                         <Grid container direction="row" alignItems="center">
                             <Grid item key={`${name}_icon`}>
@@ -45,7 +48,7 @@ const NavMenu = ({ options }) => {
                     sx={{px: 0}}
                     className={classes.navButton}
                     variant="contained"
-                    color="navButton"
+                    color="primary"
                     onClick={logout}
                 >
                     <Grid container direction="row" alignItems="center">

@@ -11,6 +11,12 @@ export default makeStyles((theme) => ({
         marginLeft: theme.spacing(2.5),
         marginRight: theme.spacing(2.5),
     },
+    logoIcon: {
+        width: 100,
+        height: 100,
+        marginLeft: theme.spacing(3),
+        marginTop: theme.spacing(3),
+    },
 
     navMenu: {
         position: 'fixed',

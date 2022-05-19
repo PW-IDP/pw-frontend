@@ -85,7 +85,7 @@ const Home = () => {
                     <AddOfferForm addOfferHandler={addOffer}/>
                 </Box>
             </Modal>
-            <Box className={classes.container} bgcolor="primary.main">
+            <Box className={classes.container} bgcolor="contentBackground.main">
                 {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}

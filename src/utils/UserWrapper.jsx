@@ -48,7 +48,7 @@ const UserWrapper = ({ children }) => {
     }, [user]);
   
     return (
-        <div>
+        <Box bgcolor="background.main">
             <NavMenu options={userPages}/>
             <Grid container justifyContent='flex-start' spacing={0}>
                 <Grid item key='navMenu' className={classes.navGrid} />
@@ -56,7 +56,7 @@ const UserWrapper = ({ children }) => {
                     {children}
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     );
   };
   
