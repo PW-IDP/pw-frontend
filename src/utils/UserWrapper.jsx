@@ -4,7 +4,7 @@ import { Grid, Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authSettings } from "../common/AuthSettings";
-import NavMenu from "../components/NavMenu/NavMenu";
+import NavMenu from "./NavMenu/NavMenu";
 import MedicalHouse from "../assets/fa6-solid_house-medical-flag.svg"
 import Home from "../assets/ant-design_home-filled.svg"
 import Book from "../assets/ant-design_book-filled.svg"

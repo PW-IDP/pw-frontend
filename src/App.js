@@ -7,12 +7,12 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import Test from './components/TestComponent/Test';
 import AuthWrapper from './utils/AuthWrapper';
-import Home from './components/User/Home/Home';
-import Statistics from './components/Admin/Statistics/Statistics';
-import Users from './components/Admin/Users/Users';
-import MySharings from './components/User/MySharings/MySharings';
-import MyBookings from './components/User/MyBookings/MyBookings';
-import MyStatistics from './components/User/MyStatistics/MyStatistics';
+import Home from './components/pages/User/Home/Home';
+import Statistics from './components/pages/Admin/Statistics/Statistics';
+import Users from './components/pages/Admin/Users/Users';
+import MySharings from './components/pages/User/MySharings/MySharings';
+import MyBookings from './components/pages/User/MyBookings/MyBookings';
+import MyStatistics from './components/pages/User/MyStatistics/MyStatistics';
 
 function App() {
     return (

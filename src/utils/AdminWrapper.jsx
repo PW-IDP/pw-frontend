@@ -4,7 +4,7 @@ import { Grid, Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { authSettings } from "../common/AuthSettings";
-import NavMenu from "../components/NavMenu/NavMenu";
+import NavMenu from "./NavMenu/NavMenu";
 import Group from "../assets/clarity_users-solid.svg"
 import Chart from "../assets/uil_chart-growth.svg"
 

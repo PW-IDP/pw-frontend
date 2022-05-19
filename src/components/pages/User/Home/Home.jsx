@@ -1,9 +1,9 @@
 import { Add } from '@mui/icons-material';
 import { Box, Button, Paper, Modal, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import OfferBox from '../../../utils/OfferBox/OfferBox';
-import UserWrapper from '../../../utils/UserWrapper'
-import AddOfferForm from './AddOfferForm/AddOfferForm';
+import OfferBox from '../../../OfferBox/OfferBox';
+import UserWrapper from '../../../../utils/UserWrapper'
+import AddOfferForm from '../../../modals/AddOfferForm/AddOfferForm';
 
 import useStyles from './styles';
 
@@ -12,7 +12,7 @@ const mockOffers = [{
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
     'minPersons': 3,
-    'minPersons': 5,
+    'maxPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -22,7 +22,7 @@ const mockOffers = [{
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
     'minPersons': 3,
-    'minPersons': 5,
+    'maxPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -32,7 +32,7 @@ const mockOffers = [{
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
     'minPersons': 3,
-    'minPersons': 5,
+    'maxPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -42,7 +42,7 @@ const mockOffers = [{
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
     'minPersons': 3,
-    'minPersons': 5,
+    'maxPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -52,7 +52,7 @@ const mockOffers = [{
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
     'minPersons': 3,
-    'minPersons': 5,
+    'maxPersons': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
