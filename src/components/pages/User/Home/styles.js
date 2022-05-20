@@ -8,14 +8,21 @@ export default makeStyles((theme) => ({
         width: 250,
         [theme.breakpoints.up('sm')]: {
             padding: theme.spacing(5),
-            width: 320,
+            width: 300,
         },
         [theme.breakpoints.up('md')]: {
-            width: 540,
+            width: 500,
         },
         [theme.breakpoints.up('lg')]: {
+            width: 650,
+        },
+        [theme.breakpoints.up('xl')]: {
             width: 750,
         }
+    },
+    navButton: {
+        width: 80,
+        height: 40,
     },
     addButtonContainer: {
         position: 'fixed',

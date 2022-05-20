@@ -52,13 +52,13 @@ const NavMenu = ({ options }) => {
                     onClick={logout}
                 >
                     <Grid container direction="row" alignItems="center">
-                            <Grid item key="logout_icon">
-                                <img className={classes.navIcon} src={Logout} alt="SVG as an image" />
-                            </Grid>
-                            <Grid item  key="logout_name">
-                                <Typography align='left' sx={{width: 1}}>Log Out</Typography>
-                            </Grid>
+                        <Grid item key="logout_icon">
+                            <img className={classes.navIcon} src={Logout} alt="SVG as an image" />
                         </Grid>
+                        <Grid item  key="logout_name">
+                            <Typography align='left' sx={{width: 1}}>Log Out</Typography>
+                        </Grid>
+                    </Grid>
                 </Button>
             </Box>
         </Box>
