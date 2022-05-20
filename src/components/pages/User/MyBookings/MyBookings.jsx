@@ -16,7 +16,7 @@ const mockBookings = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.',
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
     'startDate': "12-05-2022"
 },{
     'title': 'Offer title',
@@ -27,7 +27,7 @@ const mockBookings = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.',
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
     'startDate': '01-05-2022',
     'endDate': '12-05-2022'
 },{
@@ -39,7 +39,7 @@ const mockBookings = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.',
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
     'startDate': '01-05-2022',
     'endDate': '12-05-2022'
 },{
@@ -51,7 +51,7 @@ const mockBookings = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.',
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
     'startDate': '01-05-2022',
     'endDate': '12-05-2022'
 },

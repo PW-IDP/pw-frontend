@@ -2,7 +2,7 @@ import { Add } from '@mui/icons-material';
 import { Box, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import UserWrapper from '../../../../utils/UserWrapper'
-import AddOfferModal from '../../../modals/AddOfferModal/AddOfferModal';
+import AddResidenceModal from '../../../modals/AddResidenceModal/AddResidenceModal';
 import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
 import OfferBox from '../../../OfferBox/OfferBox';
 
@@ -81,7 +81,7 @@ const MyResidences = () => {
 
     return (
         <UserWrapper>
-            <AddOfferModal openModal={openAddResidenceModal} onClose={() => setOpenAddResidenceModal(false)} addOfferHandler={addResidence}/>
+            <AddResidenceModal openModal={openAddResidenceModal} onClose={() => setOpenAddResidenceModal(false)} addResidenceHandler={addResidence}/>
             <ConfirmationModal
                 openModal={openDeleteConfirmationModal}
                 onClose={() => setOpenDeleteConfirmationModal(false)}
