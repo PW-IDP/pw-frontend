@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 export default makeStyles((theme) => ({
     container: {
         margin: 'auto',
-        padding: theme.spacing(5, 1),
+        marginTop: theme.spacing(20),
         height: 700,
         width: 200,
         [theme.breakpoints.up('sm')]: {
