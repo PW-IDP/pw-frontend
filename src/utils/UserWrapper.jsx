@@ -25,8 +25,8 @@ const UserWrapper = ({ children }) => {
             icon: Home
         },
         {
-            name: 'My Sharings',
-            link: '/my-sharings',
+            name: 'My Residences',
+            link: '/my-residences',
             icon: MedicalHouse
         },
         {

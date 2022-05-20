@@ -10,7 +10,7 @@ import AuthWrapper from './utils/AuthWrapper';
 import Home from './components/pages/User/Home/Home';
 import Statistics from './components/pages/Admin/Statistics/Statistics';
 import Users from './components/pages/Admin/Users/Users';
-import MySharings from './components/pages/User/MySharings/MySharings';
+import MyResidences from './components/pages/User/MyResidences/MyResidences';
 import MyBookings from './components/pages/User/MyBookings/MyBookings';
 import MyStatistics from './components/pages/User/MyStatistics/MyStatistics';
 
@@ -21,7 +21,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path='/' element={<Home />} />
-                        <Route exact path='/my-sharings' element={<MySharings />} />
+                        <Route exact path='/my-residences' element={<MyResidences />} />
                         <Route exact path='/my-bookings' element={<MyBookings />} />
                         <Route exact path='/my-statistics' element={<MyStatistics />} />
 
