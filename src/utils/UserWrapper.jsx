@@ -50,7 +50,7 @@ const UserWrapper = ({ children }) => {
     return (
         <Box bgcolor="background.main">
             <NavMenu options={userPages}/>
-            <Grid container justifyContent='flex-start' spacing={0}>
+            <Grid container justifyContent='flex-start'>
                 <Grid item key='navMenu' className={classes.navGrid} />
                 <Grid item key='content' xs>
                     <Box className={classes.fullHeight}>

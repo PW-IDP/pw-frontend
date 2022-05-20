@@ -37,7 +37,7 @@ const AdminWrapper = ({ children }) => {
     return (
         <Box bgcolor="background.main">
             <NavMenu options={adminPages}/>
-            <Grid container justifyContent='flex-start' spacing={4}>
+            <Grid container justifyContent='flex-start'>
                 <Grid item key='navMenu' className={classes.navGrid}>
                 </Grid>
                 <Grid item key='content' xs>

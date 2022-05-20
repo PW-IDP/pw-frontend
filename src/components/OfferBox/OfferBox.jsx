@@ -9,16 +9,18 @@ const OfferBox = ({ title, name, email, persons, county, city, address, descript
 
     return (
         <Box className={classes.offer} borderRadius={1} bgcolor="content.main">
-            <Typography sx={{mb: 4}}>{title}</Typography>
-            <Typography sx={{mb: 4}}>{`${name} (${email})`}</Typography>
-            <Typography sx={{mb: 4}}>Persons to be hosted: {persons[0] == persons[1] ? persons[0] : `${persons[0]}-${persons[1]}`}</Typography>
-            <Typography sx={{mb: 4}}>County {county}, City {city}</Typography>
-            <Typography sx={{mb: 4}}>Address: {address}</Typography>
-            <Typography sx={{mt: 8}}>{description}</Typography>
+            <Box sx={{ml: 1}}>
+                <Typography sx={{mb: 4}} lineHeight='22px'>{title}</Typography>
+                <Typography sx={{mb: 4}} lineHeight='22px'>{`${name} (${email})`}</Typography>
+                <Typography sx={{mb: 4}} lineHeight='22px'>Persons to be hosted: {persons[0] == persons[1] ? persons[0] : `${persons[0]}-${persons[1]}`}</Typography>
+                <Typography sx={{mb: 4}} lineHeight='22px'>County {county}, City {city}</Typography>
+                <Typography sx={{mb: 4}} lineHeight='22px'>Address: {address}</Typography>
+                <Typography sx={{mt: 8}} lineHeight='22px'>{description}</Typography>
+            </Box>
             <Box sx={{mt: 8, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', pl: 10, pr: 20, height: 70}}  borderRadius={1} bgcolor="section.main">
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     {infoLines && infoLines.map((line, i) => (
-                        <Typography key={`${i}_Typography`}>{line}</Typography>
+                        <Typography lineHeight='22px' key={`${i}_Typography`}>{line}</Typography>
                     ))}
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>

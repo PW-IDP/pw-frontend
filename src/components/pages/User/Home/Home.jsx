@@ -16,7 +16,7 @@ const mockOffers = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.'
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },{
     'title': 'Offer title',
     'name': 'FirstName LastName',
@@ -26,7 +26,7 @@ const mockOffers = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.'
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },{
     'title': 'Offer title',
     'name': 'FirstName LastName',
@@ -36,7 +36,7 @@ const mockOffers = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.'
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },{
     'title': 'Offer title',
     'name': 'FirstName LastName',
@@ -46,7 +46,7 @@ const mockOffers = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.'
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },{
     'title': 'Offer title',
     'name': 'FirstName LastName',
@@ -56,7 +56,7 @@ const mockOffers = [{
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at an acceptable price.'
+    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },
 ]
 
