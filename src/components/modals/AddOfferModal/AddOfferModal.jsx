@@ -14,7 +14,7 @@ const formFields = [
     {name: "maxCapacity", label: "Max. Capacity"},
 ]
 
-const AddOfferForm = ({ openModal, onClose, addOfferHandler }) => {
+const AddOfferModal = ({ openModal, onClose, addOfferHandler }) => {
     const classes = useStyles();
 
     const { register, handleSubmit } = useForm();
@@ -58,4 +58,4 @@ const AddOfferForm = ({ openModal, onClose, addOfferHandler }) => {
     )
 }
 
-export default AddOfferForm
+export default AddOfferModal

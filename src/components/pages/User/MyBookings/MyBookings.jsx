@@ -5,6 +5,7 @@ import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
 
 import useStyles from './styles';
+import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
 
 const mockBookings = [{
     'title': 'Offer title',
@@ -60,17 +61,35 @@ const mockBookings = [{
 const Home = () => {
     const classes = useStyles();
     const [bookings, setBookings] = useState([])
+    const [selectedOffer, setSelectedOffer] = useState(undefined)
+    const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
     useEffect(() => {
+        // Should be sorted by startDate first
         setBookings(mockBookings)
     }, [])
 
-    const leaveResidence = (id, email) => {
-        console.log(id, email)
+    const leaveResidence = (id) => {
+        console.log(id)
+        setOpenConfirmationModal(false)
+        // reload
+    }
+    const leaveConfirmation = (id) => {
+        setSelectedOffer(id)
+        setOpenConfirmationModal(true)
     }
 
     return (
         <UserWrapper>
+            <ConfirmationModal
+                openModal={openConfirmationModal}
+                onClose={() => setOpenConfirmationModal(false)}
+                actionText="Do you want to leave this residence?"
+                affirmativeText="Yes"
+                onAffirmative={() => leaveResidence(selectedOffer)}
+                negativeText="No"
+                onNegative={() => setOpenConfirmationModal(false)}
+            />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
                 {bookings.map(({ title, name, email, minPersons, maxPersons, county, city, address, description, startDate, endDate}, i) => (
                     endDate ?
@@ -99,7 +118,7 @@ const Home = () => {
 
                         buttonText="Leave"
                         buttonColor="secondary"
-                        buttonOnClick={() => {leaveResidence(title, email)}}
+                        buttonOnClick={() => {leaveConfirmation(title)}}
                         />
                 ))}
             </Box>

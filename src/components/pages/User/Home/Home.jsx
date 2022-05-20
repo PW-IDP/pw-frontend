@@ -3,9 +3,10 @@ import { Box, Button } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
-import AddOfferForm from '../../../modals/AddOfferForm/AddOfferModal';
+import AddOfferModal from '../../../modals/AddOfferModal/AddOfferModal';
 
 import useStyles from './styles';
+import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
 
 const mockOffers = [{
     'title': 'Offer title',
@@ -63,15 +64,24 @@ const mockOffers = [{
 
 const Home = () => {
     const classes = useStyles();
-    const [openModal, setOpenModal] = useState(false);
     const [offers, setOffers] = useState([])
+    const [selectedOffer, setSelectedOffer] = useState(undefined)
+    const [openAddOfferModal, setOpenAddOfferModal] = useState(false);
+    const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
 
     useEffect(() => {
         setOffers(mockOffers)
     }, [])
 
-    const acceptOffer = (id, email) => {
-        console.log(id, email)
+    const acceptOffer = (id) => {
+        console.log(id)
+        setOpenConfirmationModal(false)
+        // reload
+    }
+
+    const offerConfirmation = (id) => {
+        setSelectedOffer(id)
+        setOpenConfirmationModal(true)
     }
 
     const addOffer = (data) => {
@@ -80,7 +90,16 @@ const Home = () => {
 
     return (
         <UserWrapper>
-            <AddOfferForm openModal={openModal} onClose={() => setOpenModal(false)} addOfferHandler={addOffer}/>
+            <AddOfferModal openModal={openAddOfferModal} onClose={() => setOpenAddOfferModal(false)} addOfferHandler={addOffer}/>
+            <ConfirmationModal
+                openModal={openConfirmationModal}
+                onClose={() => setOpenConfirmationModal(false)}
+                actionText="Do you want to accept this offer?"
+                affirmativeText="Yes"
+                onAffirmative={() => acceptOffer(selectedOffer)}
+                negativeText="No"
+                onNegative={() => setOpenConfirmationModal(false)}
+            />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
                 {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
@@ -95,12 +114,12 @@ const Home = () => {
 
                         buttonText="Accept"
                         buttonColor="primary"
-                        buttonOnClick={() => {acceptOffer(title, email)}}
+                        buttonOnClick={() => {offerConfirmation(title)}}
                         />
                 ))}
             </Box>
             <div className={classes.addButtonContainer}>
-                <Button className={classes.addButton} variant="contained" sx={{borderRadius: 100}} onClick={() => setOpenModal(true)}>
+                <Button className={classes.addButton} variant="contained" sx={{borderRadius: 100}} onClick={() => setOpenAddOfferModal(true)}>
                     <Add fontSize="large" />
                 </Button>
             </div>
