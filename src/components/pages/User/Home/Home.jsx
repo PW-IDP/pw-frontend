@@ -99,7 +99,30 @@ const Home = () => {
             console.log("ERROR:", error);
         });
     })
-    const getAvailableOffers = useCallback(async () => {
+
+    const getMySharings = useCallback(async () => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        fetch(`${base}${routes.sharing.offers}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function ({ offers }) {
+                    setMySharings(offers);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
+
+    const getAvailableSharings = useCallback(async () => {
         const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'GET',
@@ -122,7 +145,6 @@ const Home = () => {
     })
 
     const addSharing = useCallback(async (data) => {
-        console.log(data)
         const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'POST',
@@ -164,8 +186,50 @@ const Home = () => {
         });
     })
 
+    const deleteSharing = useCallback(async (data) => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.sharing.delete}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                setAlert({
+                    severity: 'success',
+                    message: "Sharing Deleted!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
+                getMySharings()
+            } else {
+                response.json().then(function ({ message }) {
+                    setAlert({
+                        severity: 'error',
+                        message: message
+                    })
+                    setTimeout(() => {
+                        setAlert(undefined)
+                    }, 3000);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        })
+        .finally(function () {
+            setOpenDeleteConfirmationModal(false)
+        });
+    })
+
     const acceptSharing = useCallback(async (data) => {
-        data = {sharing_id: selectedSharing , ...data}
+        data = {...selectedSharing , ...data}
         const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'PATCH',
@@ -186,7 +250,7 @@ const Home = () => {
                 setTimeout(() => {
                     setAlert(undefined)
                 }, 3000);
-                getResidences()
+                getAvailableSharings()
             } else {
                 response.json().then(function ({ message }) {
                     setAlert({
@@ -207,28 +271,19 @@ const Home = () => {
         });
     })
 
-    const acceptConfirmation = (sharing_id) => {
-        setSelectedSharing(sharing_id)
+    const acceptConfirmation = (data) => {
+        setSelectedSharing(data)
         setOpenAcceptConfirmationModal(true)
     }
 
-    const deleteOffer = (id) => {
-        console.log(id)
-        setOpenDeleteConfirmationModal(false)
-        // reload
-    }
-
-    const deleteConfirmation = (id) => {
-        setSelectedSharing(id)
+    const deleteConfirmation = (data) => {
+        setSelectedSharing(data)
         setOpenDeleteConfirmationModal(true)
     }
 
-    const addOffer = (data) => {
-        console.log(data)
-    }
-
     useEffect(() => {
-        getAvailableOffers()
+        getMySharings()
+        getAvailableSharings()
         getResidences()
     }, [])
 
@@ -255,7 +310,7 @@ const Home = () => {
                 onClose={() => setOpenDeleteConfirmationModal(false)}
                 actionText="Do you want to delete this sharing?"
                 affirmativeText="Yes"
-                onAffirmative={() => deleteOffer(selectedSharing)}
+                onAffirmative={() => deleteSharing(selectedSharing)}
                 negativeText="No"
                 onNegative={() => setOpenDeleteConfirmationModal(false)}
             />
@@ -297,7 +352,7 @@ const Home = () => {
 
                             buttonText="Accept"
                             buttonColor="primary"
-                            buttonOnClick={() => {acceptConfirmation(sharing_id)}}
+                            buttonOnClick={() => {acceptConfirmation({ sharing_id })}}
                             />
                     ))}
                 </Box>) : 
@@ -315,7 +370,7 @@ const Home = () => {
 
                         buttonText="Delete"
                         buttonColor="secondary"
-                        buttonOnClick={() => {deleteConfirmation(sharing_id)}}
+                        buttonOnClick={() => {deleteConfirmation({ sharing_id })}}
                         />
                 ))}
                 </Box>)}

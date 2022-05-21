@@ -85,7 +85,6 @@ const MyResidences = () => {
     })
 
     const deleteResidence = useCallback(async (data) => {
-        console.log(data)
         const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'DELETE',
