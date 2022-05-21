@@ -1,98 +1,110 @@
-import { Add } from '@mui/icons-material';
-import { Box, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { useAuth0 } from '@auth0/auth0-react';
+import { Box, Button, Alert, Typography } from '@mui/material'
+import React, { useCallback, useEffect, useState } from 'react'
 import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
+import { base, routes } from '../../../../utils/api/routes';
 
 import useStyles from './styles';
 import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
 
-const mockBookings = [{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'startDate': "12-05-2022"
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'startDate': '01-05-2022',
-    'endDate': '12-05-2022'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'startDate': '01-05-2022',
-    'endDate': '12-05-2022'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'startDate': '01-05-2022',
-    'endDate': '12-05-2022'
-},
-]
-
-
 const Home = () => {
     const classes = useStyles();
     const [bookings, setBookings] = useState([])
-    const [selectedOffer, setSelectedOffer] = useState(undefined)
-    const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+    const [selectedSharing, setSelectedSharing] = useState(undefined)
+    const [openConfirmationModal, setOpenLeaveConfirmationModal] = useState(false);
+    const { getAccessTokenSilently } = useAuth0();
+    const [alert, setAlert] = useState(undefined)
+
+    const getBookings = useCallback(async () => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        fetch(`${base}${routes.sharing.bookings}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function ({ bookings }) {
+                    const x = bookings.sort((a, b) => (b.end_datetime === undefined) - (a.end_datetime === undefined))
+                    setBookings(bookings);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
+    
+    const leaveResidence = useCallback(async (data) => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.sharing.leave}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                setAlert({
+                    severity: 'success',
+                    message: "You left the residence!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
+                getBookings()
+            } else {
+                response.json().then(function ({ message }) {
+                    setAlert({
+                        severity: 'error',
+                        message: message
+                    })
+                    setTimeout(() => {
+                        setAlert(undefined)
+                    }, 3000);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        })
+        .finally(function () {
+            setOpenLeaveConfirmationModal(false)
+        });
+    })
 
     useEffect(() => {
-        // Should be sorted by startDate first
-        setBookings(mockBookings)
+        getBookings()
     }, [])
 
-    const leaveResidence = (id) => {
-        console.log(id)
-        setOpenConfirmationModal(false)
-        // reload
-    }
-    const leaveConfirmation = (id) => {
-        setSelectedOffer(id)
-        setOpenConfirmationModal(true)
+    const leaveConfirmation = (data) => {
+        setSelectedSharing(data)
+        setOpenLeaveConfirmationModal(true)
     }
 
     return (
         <UserWrapper>
+            {alert && <Alert className={classes.popUpAlert} severity={alert.severity}><Typography>{alert.message}</Typography></Alert>}
             <ConfirmationModal
                 openModal={openConfirmationModal}
-                onClose={() => setOpenConfirmationModal(false)}
+                onClose={() => setOpenLeaveConfirmationModal(false)}
                 actionText="Do you want to leave this residence?"
                 affirmativeText="Yes"
-                onAffirmative={() => leaveResidence(selectedOffer)}
+                onAffirmative={() => leaveResidence(selectedSharing)}
                 negativeText="No"
-                onNegative={() => setOpenConfirmationModal(false)}
+                onNegative={() => setOpenLeaveConfirmationModal(false)}
             />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {bookings.map(({ title, name, email, minPersons, maxPersons, county, city, address, description, startDate, endDate}, i) => (
-                    endDate ?
+                {bookings.map(({ sharing_id, title, name, email, minPersons, maxPersons, county, city, address, description, start_datetime, end_datetime}, i) => (
+                    end_datetime ?
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
@@ -102,7 +114,7 @@ const Home = () => {
                         city={city}
                         address={address}
                         description={description}
-                        infoLines={["Occupied by Me", `From ${startDate} Until ${endDate}`]}
+                        infoLines={["Occupied by Me", `From ${start_datetime.slice(0, 10)} Until ${end_datetime.slice(0, 10)}`]}
                         />
                     :
                     <OfferBox key={`${i}_${title}`}
@@ -114,11 +126,11 @@ const Home = () => {
                         city={city}
                         address={address}
                         description={description}
-                        infoLines={["Occupied by Me", `On ${startDate}`]}
+                        infoLines={["Occupied by Me", `On ${start_datetime.slice(0, 10)}`]}
 
                         buttonText="Leave"
                         buttonColor="secondary"
-                        buttonOnClick={() => {leaveConfirmation(title)}}
+                        buttonOnClick={() => {leaveConfirmation({ sharing_id })}}
                         />
                 ))}
             </Box>
