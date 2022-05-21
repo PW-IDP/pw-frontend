@@ -11,59 +11,6 @@ import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationMod
 import { useAuth0 } from '@auth0/auth0-react';
 import AcceptSharingModal from '../../../modals/AcceptSharingModal/AcceptSharingModal';
 
-const mockOffers = [{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'max_capacity': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-}, {
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'max_capacity': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-}, {
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'max_capacity': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'max_capacity': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'max_capacity': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-]
-
 const Home = () => {
     const classes = useStyles();
     const [myResidences, setMyResidences] = useState([])
