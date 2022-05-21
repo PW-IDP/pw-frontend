@@ -8,6 +8,12 @@ const routes = {
         get: "residence/get",
         delete: "residence/delete",
     },
+    sharing: {
+        add: "sharing/add",
+        getAvailableOffers: "sharing/getAvailableOffers",
+        accept: "sharing/accept",
+        delete: "sharing/delete",
+    },
 };
 
 export { base, routes };

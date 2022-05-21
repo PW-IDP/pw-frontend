@@ -12,7 +12,7 @@ import useStyles from './styles';
 
 const MyResidences = () => {
     const classes = useStyles();
-    const [residences, setResidences] = useState([])
+    const [myResidences, setMyResidences] = useState([])
     const [selectedResidence, setSelectedResidence] = useState(undefined)
     const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
     const [openAddResidenceModal, setOpenAddResidenceModal] = useState(false);
@@ -32,7 +32,7 @@ const MyResidences = () => {
         .then(function (response) {
             if (response.status === 200) {
                 response.json().then(function ({ residences }) {
-                    setResidences(residences);
+                    setMyResidences(residences);
                 })
             }
         })
@@ -58,7 +58,7 @@ const MyResidences = () => {
             if (response.status === 201) {
                 setAlert({
                     severity: 'success',
-                    message: "Residence Added Successfully!"
+                    message: "Residence Added!"
                 })
                 setTimeout(() => {
                     setAlert(undefined)
@@ -101,7 +101,7 @@ const MyResidences = () => {
             if (response.status === 200) {
                 setAlert({
                     severity: 'success',
-                    message: "Residence Deleted Successfully!"
+                    message: "Residence Deleted!"
                 })
                 setTimeout(() => {
                     setAlert(undefined)
@@ -147,7 +147,7 @@ const MyResidences = () => {
                 onNegative={() => setOpenDeleteConfirmationModal(false)}
             />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {residences.map(({ residence_id, name, min_capacity, max_capacity, county, city, address, description, guest}, i) => (
+                {myResidences.map(({ residence_id, name, min_capacity, max_capacity, county, city, address, description, guest}, i) => (
                     guest ?
                     <ResidenceBox
                         key={`${i}_${name}`}
@@ -157,7 +157,7 @@ const MyResidences = () => {
                         city={city}
                         address={address}
                         description={description}
-                        infoLines={[`Occupied by ${guest.name} (${guest.email})`, `On ${guest.startDate}`]}
+                        infoLines={[`Occupied by ${guest.name} (${guest.email})`, `On ${guest.start_datetime.slice(0, 10)}`]}
                     />
                     :
                     <ResidenceBox

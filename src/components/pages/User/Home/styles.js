@@ -20,6 +20,18 @@ export default makeStyles((theme) => ({
             width: 750,
         }
     },
+    popUpAlert: {
+        position: 'fixed',
+        top: 24,
+        right: 24,
+        width: 200,
+        [theme.breakpoints.up('md')]: {
+            width: 400,
+        },
+        "& .MuiAlert-icon": {
+          fontSize: 32
+        }
+    },
     navButton: {
         width: 80,
         height: 40,

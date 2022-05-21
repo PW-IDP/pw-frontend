@@ -1,19 +1,22 @@
 import { Add } from '@mui/icons-material';
-import { Box, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Alert, Typography } from '@mui/material'
+import React, { useCallback, useEffect, useState } from 'react'
+import { base, routes } from '../../../../utils/api/routes';
 import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
 import AddOfferModal from '../../../modals/AddOfferModal/AddOfferModal';
 
 import useStyles from './styles';
 import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
+import { useAuth0 } from '@auth0/auth0-react';
+import AcceptSharingModal from '../../../modals/AcceptSharingModal/AcceptSharingModal';
 
 const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
+    'min_capacity': 3,
+    'max_capacity': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -22,8 +25,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
+    'min_capacity': 3,
+    'max_capacity': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -32,8 +35,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
+    'min_capacity': 3,
+    'max_capacity': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -42,8 +45,8 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
+    'min_capacity': 3,
+    'max_capacity': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
@@ -52,74 +55,160 @@ const mockOffers = [{
     'title': 'Offer title',
     'name': 'FirstName LastName',
     'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
+    'min_capacity': 3,
+    'max_capacity': 5,
     'county': 'Constanta',
     'city': 'Mangalia',
     'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
     'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
 },
 ]
-
-const mockMyOffers = [{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-}
-]
-
 
 const Home = () => {
     const classes = useStyles();
-    const [offers, setOffers] = useState([])
+    const [myResidences, setMyResidences] = useState([])
+    const [availableSharings, setAvailableSharings] = useState([])
     const [myOffers, setMyOffers] = useState([])
-    const [selectedOffer, setSelectedOffer] = useState(undefined)
-    const [openAddOfferModal, setOpenAddOfferModal] = useState(false);
+    const [selectedSharing, setSelectedSharing] = useState(undefined)
+    const [openAddSharingModal, setOpenAddSharingModal] = useState(false);
     const [openAcceptConfirmationModal, setOpenAcceptConfirmationModal] = useState(false);
     const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
+    const [alert, setAlert] = useState(undefined)
     const [subPage, setSubPage] = useState("Guest")
+ 
+    const { getAccessTokenSilently } = useAuth0();
 
-    useEffect(() => {
-        setOffers(mockOffers)
-        setMyOffers(mockMyOffers)
-    }, [])
+    const getResidences = useCallback(async () => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        fetch(`${base}${routes.residence.get}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function ({ residences }) {
+                    setMyResidences(residences);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
+    const getAvailableOffers = useCallback(async () => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        fetch(`${base}${routes.sharing.getAvailableOffers}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function ({ avaialable_offers }) {
+                    setAvailableSharings(avaialable_offers);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
 
-    const acceptOffer = (id) => {
-        console.log(id)
-        setOpenAcceptConfirmationModal(false)
-        // reload
-    }
+    const addSharing = useCallback(async (data) => {
+        console.log(data)
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.sharing.add}`, config)
+        .then(function (response) {
+            if (response.status === 201) {
+                setAlert({
+                    severity: 'success',
+                    message: "Sharing Added Successfully!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
+                getResidences()
+            } else {
+                response.json().then(function ({ message }) {
+                    setAlert({
+                        severity: 'error',
+                        message: message
+                    })
+                    setTimeout(() => {
+                        setAlert(undefined)
+                    }, 3000);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        })
+        .finally(function () {
+            setOpenAddSharingModal(false)
+        });
+    })
 
-    const acceptConfirmation = (id) => {
-        setSelectedOffer(id)
+    const acceptSharing = useCallback(async (data) => {
+        data = {sharing_id: selectedSharing , ...data}
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.sharing.accept}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                setAlert({
+                    severity: 'success',
+                    message: "Sharing Accepted!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
+                getResidences()
+            } else {
+                response.json().then(function ({ message }) {
+                    setAlert({
+                        severity: 'error',
+                        message: message
+                    })
+                    setTimeout(() => {
+                        setAlert(undefined)
+                    }, 3000);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        })
+        .finally(function () {
+            setOpenAcceptConfirmationModal(false)
+        });
+    })
+
+    const acceptConfirmation = (sharing_id) => {
+        setSelectedSharing(sharing_id)
         setOpenAcceptConfirmationModal(true)
     }
 
@@ -130,7 +219,7 @@ const Home = () => {
     }
 
     const deleteConfirmation = (id) => {
-        setSelectedOffer(id)
+        setSelectedSharing(id)
         setOpenDeleteConfirmationModal(true)
     }
 
@@ -138,24 +227,37 @@ const Home = () => {
         console.log(data)
     }
 
+    useEffect(() => {
+        // setOffers(mockOffers)
+        // setMyOffers(mockMyOffers)
+        getAvailableOffers()
+        getResidences()
+    }, [])
+
     return (
         <UserWrapper>
-            <AddOfferModal openModal={openAddOfferModal} onClose={() => setOpenAddOfferModal(false)} addOfferHandler={addOffer}/>
-            <ConfirmationModal
+            {alert && <Alert className={classes.popUpAlert} severity={alert.severity}><Typography>{alert.message}</Typography></Alert>}
+            <AddOfferModal
+                openModal={openAddSharingModal}
+                onClose={() => setOpenAddSharingModal(false)}
+                residences={myResidences}
+                addOfferHandler={addSharing}
+            />
+            <AcceptSharingModal
                 openModal={openAcceptConfirmationModal}
                 onClose={() => setOpenAcceptConfirmationModal(false)}
-                actionText="Do you want to accept this offer?"
-                affirmativeText="Yes"
-                onAffirmative={() => acceptOffer(selectedOffer)}
-                negativeText="No"
+                actionText="How many people would you like to stay?"
+                affirmativeText="Accept"
+                acceptSharingHandler={acceptSharing}
+                negativeText="Decline"
                 onNegative={() => setOpenAcceptConfirmationModal(false)}
             />
             <ConfirmationModal
                 openModal={openDeleteConfirmationModal}
                 onClose={() => setOpenDeleteConfirmationModal(false)}
-                actionText="Do you want to delete this offer?"
+                actionText="Do you want to delete this sharing?"
                 affirmativeText="Yes"
-                onAffirmative={() => deleteOffer(selectedOffer)}
+                onAffirmative={() => deleteOffer(selectedSharing)}
                 negativeText="No"
                 onNegative={() => setOpenDeleteConfirmationModal(false)}
             />
@@ -184,12 +286,12 @@ const Home = () => {
 
                 {subPage === "Guest" ?
                 (<Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                    {offers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description}, i) => (
+                    {availableSharings.map(({ sharing_id, title, name, email, min_capacity, max_capacity, county, city, address, description}, i) => (
                         <OfferBox key={`${i}_${title}`}
                             title={title}
                             name={name}
                             email={email}
-                            persons={[minPersons, maxPersons]}
+                            persons={[min_capacity, max_capacity]}
                             county={county}
                             city={city}
                             address={address}
@@ -197,17 +299,17 @@ const Home = () => {
 
                             buttonText="Accept"
                             buttonColor="primary"
-                            buttonOnClick={() => {acceptConfirmation(title)}}
+                            buttonOnClick={() => {acceptConfirmation(sharing_id)}}
                             />
                     ))}
                 </Box>) : 
                 (<Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {myOffers.map(({ title, name, email, minPersons, maxPersons, county, city, address, description, startDate, endDate}, i) => (
+                {myOffers.map(({ sharing_id, title, name, email, min_capacity, max_capacity, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
                         email={email}
-                        persons={[minPersons, maxPersons]}
+                        persons={[min_capacity, max_capacity]}
                         county={county}
                         city={city}
                         address={address}
@@ -215,13 +317,13 @@ const Home = () => {
 
                         buttonText="Delete"
                         buttonColor="secondary"
-                        buttonOnClick={() => {deleteConfirmation(title)}}
+                        buttonOnClick={() => {deleteConfirmation(sharing_id)}}
                         />
                 ))}
                 </Box>)}
             </Box>
             {subPage === "Host" && <Box className={classes.addButtonContainer}>
-                <Button className={classes.addButton} variant="contained" sx={{borderRadius: 100}} onClick={() => setOpenAddOfferModal(true)}>
+                <Button className={classes.addButton} variant="contained" sx={{borderRadius: 100}} onClick={() => setOpenAddSharingModal(true)}>
                     <Add fontSize="large" />
                 </Button>
             </Box>}

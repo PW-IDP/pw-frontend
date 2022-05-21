@@ -1,62 +1,17 @@
-import { Add } from '@mui/icons-material';
 import { Box, Button, Grid, TextField, Modal, MenuItem } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 import useStyles from './styles';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const mockMyResidences = [{
-    'id': 23,
-    'name': 'Residence1',
-    'title': 'Offer title1',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-{
-    'id': 212,
-    'name': 'Residence2',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-},
-{
-    'id': 123,
-    'name': 'Residence3',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'guest' : {
-        'name': 'CCC DDD',
-        'email': 'eee@mail.com',
-        'startDate': "16-05-2020"
-    }
-}]
-
-const AddOfferModal = ({ openModal, onClose, addOfferHandler }) => {
+const AddOfferModal = ({ openModal, onClose, residences, addOfferHandler }) => {
     const classes = useStyles();
-    const [residences, setResidences] = useState([])
     const [selectedResidence, setSelectedResidence] = useState('')
 
     const { register, handleSubmit } = useForm();
 
     useEffect(() => {
-        const myResidences = mockMyResidences
-        const emptyResidences = myResidences.filter(({ guest }) => guest === undefined)
-
-        setResidences(emptyResidences)
     }, [])
 
     return (
@@ -75,10 +30,10 @@ const AddOfferModal = ({ openModal, onClose, addOfferHandler }) => {
                                 />
                             </Grid>
 
-                            <Grid item xs={12} sm={6} key='residenceId'>
+                            <Grid item xs={12} sm={6} key='residence'>
                                 <Box backgroundColor='#FFFFFF'>
                                     <TextField
-                                        {...register("residenceId", { required: true })}
+                                        {...register("residence_id", { required: true })}
                                         disabled={residences.length === 0}
                                         value={selectedResidence}
                                         onChange={(e) => {setSelectedResidence(e.target.value)}}
@@ -87,8 +42,8 @@ const AddOfferModal = ({ openModal, onClose, addOfferHandler }) => {
                                         fullWidth
                                         inputProps={{ style: { backgroundColor: "#FFFFFF" } }}
                                     >
-                                        {residences.map(({id, name}) => (
-                                        <MenuItem key={id} value={id}>
+                                        {residences.map(({residence_id, name}) => (
+                                        <MenuItem key={residence_id} value={residence_id}>
                                             {name}
                                         </MenuItem>))}
                                     </TextField>
