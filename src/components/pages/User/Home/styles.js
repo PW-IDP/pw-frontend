@@ -25,6 +25,7 @@ export default makeStyles((theme) => ({
         top: 24,
         right: 24,
         width: 200,
+        zIndex: 1000,
         [theme.breakpoints.up('md')]: {
             width: 400,
         },
