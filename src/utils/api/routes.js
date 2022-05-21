@@ -3,6 +3,11 @@ const routes = {
     user: {
         save: "user/save",
     },
+    residence: {
+        add: "residence/add",
+        get: "residence/get",
+        delete: "residence/delete",
+    },
 };
 
 export { base, routes };

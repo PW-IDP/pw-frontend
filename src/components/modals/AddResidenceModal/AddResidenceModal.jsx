@@ -13,8 +13,8 @@ const formTextFields = [
 ]
 
 const formNumFields = [
-    {name: "minCapacity", label: "Min. Capacity"},
-    {name: "maxCapacity", label: "Max. Capacity"},
+    {name: "min_capacity", label: "Min. Capacity"},
+    {name: "max_capacity", label: "Max. Capacity"},
 ]
 
 const AddResidenceModal = ({ openModal, onClose, addResidenceHandler }) => {

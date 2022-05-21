@@ -1,56 +1,14 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { Add } from '@mui/icons-material';
 import { Box, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { base, routes } from '../../../../utils/api/routes';
 import UserWrapper from '../../../../utils/UserWrapper'
 import AddResidenceModal from '../../../modals/AddResidenceModal/AddResidenceModal';
 import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
-import OfferBox from '../../../OfferBox/OfferBox';
+import ResidenceBox from '../../../ResidenceBox/ResidenceBox';
 
 import useStyles from './styles';
-
-const mockMyResidences = [{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'guest' : {
-        'name': 'AAA BBB',
-        'email': 'aaa@mail.com',
-        'startDate': "12-05-2020"
-    }
-},
-{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'minPersons': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.',
-    'guest' : {
-        'name': 'CCC DDD',
-        'email': 'eee@mail.com',
-        'startDate': "16-05-2020"
-    }
-}]
 
 const MyResidences = () => {
     const classes = useStyles();
@@ -58,26 +16,88 @@ const MyResidences = () => {
     const [selectedResidence, setSelectedResidence] = useState(undefined)
     const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
     const [openAddResidenceModal, setOpenAddResidenceModal] = useState(false);
+    const { getAccessTokenSilently } = useAuth0();
 
-    useEffect(() => {
-        setResidences(mockMyResidences)
-    }, [])
+    const getResidences = useCallback(async () => {
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+        };
+        fetch(`${base}${routes.residence.get}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                response.json().then(function ({ residences }) {
+                    setResidences(residences);
+                })
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
 
-    const addResidence = (id) => {
-        console.log(id)
-        // reload
-    }
+    const addResidence = useCallback(async (data) => {
+        console.log(data)
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.residence.add}`, config)
+        .then(function (response) {
+            if (response.status === 201) {
+                console.log("SUCCESS:", "Residence Added")
+                setOpenAddResidenceModal(false)
+                getResidences()
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
 
-    const leaveResidence = (id) => {
-        console.log(id)
-        setOpenDeleteConfirmationModal(false)
-        // reload
-    }
+    const deleteResidence = useCallback(async (data) => {
+        console.log(data)
+        const accessToken = await getAccessTokenSilently();
+        const config = {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken,
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(`${base}${routes.residence.delete}`, config)
+        .then(function (response) {
+            if (response.status === 200) {
+                console.log("SUCCESS:", "Residence Deleted")
+                setOpenDeleteConfirmationModal(false)
+                getResidences()
+            }
+        })
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
+    })
+
     const deleteConfirmation = (id) => {
         setSelectedResidence(id)
         setOpenDeleteConfirmationModal(true)
     }
 
+    useEffect(() => {
+        getResidences()
+    }, [])
 
     return (
         <UserWrapper>
@@ -87,30 +107,28 @@ const MyResidences = () => {
                 onClose={() => setOpenDeleteConfirmationModal(false)}
                 actionText="Do you want to delete this residence?"
                 affirmativeText="Yes"
-                onAffirmative={() => leaveResidence(selectedResidence)}
+                onAffirmative={() => deleteResidence(selectedResidence)}
                 negativeText="No"
                 onNegative={() => setOpenDeleteConfirmationModal(false)}
             />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {residences.map(({ title, name, email, minPersons, maxPersons, county, city, address, description, guest}, i) => (
+                {residences.map(({ residence_id, name, min_capacity, max_capacity, county, city, address, description, guest}, i) => (
                     guest ?
-                    <OfferBox key={`${i}_${title}`}
-                        title={title}
+                    <ResidenceBox
+                        key={`${i}_${name}`}
                         name={name}
-                        email={email}
-                        persons={[minPersons, maxPersons]}
+                        persons={[min_capacity, max_capacity]}
                         county={county}
                         city={city}
                         address={address}
                         description={description}
-                        infoLines={[`Occupied by Me ${guest.name} (${guest.email})`, `On ${guest.startDate}`]}
-                        />
+                        infoLines={[`Occupied by ${guest.name} (${guest.email})`, `On ${guest.startDate}`]}
+                    />
                     :
-                    <OfferBox key={`${i}_${title}`}
-                        title={title}
+                    <ResidenceBox
+                        key={`${i}_${name}`}
                         name={name}
-                        email={email}
-                        persons={[minPersons, maxPersons]}
+                        persons={[min_capacity, max_capacity]}
                         county={county}
                         city={city}
                         address={address}
@@ -119,8 +137,8 @@ const MyResidences = () => {
 
                         buttonText="Delete"
                         buttonColor="secondary"
-                        buttonOnClick={() => {deleteConfirmation(title)}}
-                        />
+                        buttonOnClick={() => {deleteConfirmation({residence_id})}}
+                    />
                 ))}
             </Box>
             <Box className={classes.addButtonContainer}>
