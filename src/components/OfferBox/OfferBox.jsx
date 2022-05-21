@@ -9,7 +9,7 @@ const OfferBox = ({ title, name, email, persons, county, city, address, descript
 
     return (
         <Box className={classes.offer} borderRadius={1} bgcolor="content.main">
-            <Box sx={{ml: 1}}>
+            <Box sx={{ml: 2}}>
                 <Typography sx={{mb: 4}} lineHeight='22px'>{title}</Typography>
                 <Typography sx={{mb: 4}} lineHeight='22px'>{`${name} (${email})`}</Typography>
                 <Typography sx={{mb: 4}} lineHeight='22px'>Persons to be hosted: {persons[0] == persons[1] ? persons[0] : `${persons[0]}-${persons[1]}`}</Typography>
