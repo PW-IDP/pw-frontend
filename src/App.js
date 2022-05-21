@@ -13,6 +13,7 @@ import Users from './components/pages/Admin/Users/Users';
 import MyResidences from './components/pages/User/MyResidences/MyResidences';
 import MyBookings from './components/pages/User/MyBookings/MyBookings';
 import MyStatistics from './components/pages/User/MyStatistics/MyStatistics';
+import SaveProfile from './components/pages/SaveProfile/SaveProfile';
 
 function App() {
     return (
@@ -27,6 +28,8 @@ function App() {
 
                         <Route exact path='/admin/statistics' element={<Statistics />} />
                         <Route exact path='/admin/users' element={<Users />} />
+
+                        <Route exact path='/save-profile' element={<SaveProfile />} />
 
                         <Route exact path='/test' element={<Test />} />
                     </Routes>

@@ -12,10 +12,9 @@ root.render(
     <Auth0Provider
       domain={authSettings.domain}
       clientId={authSettings.clientId}
-      redirectUri={window.location.origin}
+      redirectUri={`${window.location.origin}/save-profile`}
+      // redirectUri={window.location.origin}
       audience={authSettings.audience}
-      // useRefreshTokens={true}
-      redirectUri={window.location.origin}
       // scope="project:admin"
     >
       <App />
