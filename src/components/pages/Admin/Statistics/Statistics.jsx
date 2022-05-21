@@ -10,15 +10,6 @@ const Statistics = () => {
     const classes = useStyles();
 
     const [mock, setMock] = useState("NaN")
-    const [myAcceptedOffers, setMyAcceptedOffers] = useState("NaN")
-    const [myFreeOffers, setMyFreeOffers] = useState("NaN")
-    const [helpedPeople, setHelpedPeople] = useState("NaN")
-    const [averagePeoplePerHouse, setAveragePeoplePerHouse] = useState("NaN")
-    const [totalDaysHosted, setTotalDaysHosted] = useState("NaN")
-
-    const [myTotalBookings, setMyTotalBookings] = useState("NaN")
-    const [averageStayTime, setAaverageStayTime] = useState("NaN")
-    const [totalDayStayed, setTotalDayStayed] = useState("NaN")
 
     useEffect(() => {
 
@@ -32,15 +23,15 @@ const Statistics = () => {
                     <Grid item key='hostStatistics' xs={12} lg={6}>
                         <Typography sx={{mt: 6}} fontSize={48} align='center' lineHeight='58px'>General Statistics</Typography>
                         <Box sx={{mx: 12, mt: 8}}>
-                            <Typography lineHeight='22px'>Total offers: {mock}</Typography>
-                            <Typography sx={{mt: 4}} lineHeight='22px'>Accepted offers: {mock}</Typography>
-                            <Typography sx={{mt: 4}} lineHeight='22px'>Free offers: {mock}</Typography>
+                            <Typography lineHeight='22px'>Total sharings: {mock}</Typography>
+                            <Typography sx={{mt: 4}} lineHeight='22px'>Accepted sharings: {mock}</Typography>
+                            <Typography sx={{mt: 4}} lineHeight='22px'>Free sharings: {mock}</Typography>
                         </Box>
                         <Box sx={{mx: 12, mt: 15}}>
                             <Typography lineHeight='22px'>Total residences: {mock}</Typography>
                             <Typography sx={{mt: 4}} lineHeight='22px'>Hosts who shared their home: {mock}</Typography>
                             <Typography sx={{mt: 4}} lineHeight='22px'>Residences per host: {mock}</Typography>
-                            <Typography sx={{mt: 4}} lineHeight='22px'>Average offers per host: {mock}</Typography>
+                            <Typography sx={{mt: 4}} lineHeight='22px'>Average sharings per host: {mock}</Typography>
                         </Box>
                         <Box sx={{mx: 12, mt: 15}}>
                             <Typography lineHeight='22px'>Total people helped: {mock}</Typography>

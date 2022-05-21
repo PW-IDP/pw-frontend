@@ -36,9 +36,9 @@ const Home = () => {
                     <Grid item key='hostStatistics' xs={12} lg={6}>
                         <Typography sx={{mt: 6}} fontSize={48} align='center' lineHeight='58px'>As a Host</Typography>
                         <Box sx={{mx: 12, mt: 8}}>
-                            <Typography lineHeight='22px'>My offers: {myTotalOffers}</Typography>
-                            <Typography sx={{mt: 4}} lineHeight='22px'>My accepted offers: {myAcceptedOffers}</Typography>
-                            <Typography sx={{mt: 4}} lineHeight='22px'>My free offers: {myFreeOffers}</Typography>
+                            <Typography lineHeight='22px'>My sharings: {myTotalOffers}</Typography>
+                            <Typography sx={{mt: 4}} lineHeight='22px'>My accepted sharings: {myAcceptedOffers}</Typography>
+                            <Typography sx={{mt: 4}} lineHeight='22px'>My free sharings: {myFreeOffers}</Typography>
                         </Box>
                         <Box sx={{mx: 12, mt: 15}}>
                             <Typography lineHeight='22px'>People I have helped: {helpedPeople}</Typography>

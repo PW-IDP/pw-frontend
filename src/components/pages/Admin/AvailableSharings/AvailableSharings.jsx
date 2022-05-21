@@ -60,14 +60,14 @@ const mockOffers = [{
 ]
 
 
-const AvailableOffers = () => {
+const AvailableSharings = () => {
     const classes = useStyles();
-    const [offers, setOffers] = useState([])
-    const [selectedOffer, setSelectedOffer] = useState(undefined)
+    const [sharings, setSharings] = useState([])
+    const [selectedSharings, setSelectedSharings] = useState(undefined)
     const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
 
     useEffect(() => {
-        setOffers(mockOffers)
+        setSharings(mockOffers)
     }, [])
 
 
@@ -78,7 +78,7 @@ const AvailableOffers = () => {
     }
 
     const deleteConfirmation = (id) => {
-        setSelectedOffer(id)
+        setSelectedSharings(id)
         setOpenDeleteConfirmationModal(true)
     }
 
@@ -90,13 +90,13 @@ const AvailableOffers = () => {
                 onClose={() => setOpenDeleteConfirmationModal(false)}
                 actionText="Do you want to delete this offer?"
                 affirmativeText="Yes"
-                onAffirmative={() => deleteOffer(selectedOffer)}
+                onAffirmative={() => deleteOffer(selectedSharings)}
                 negativeText="No"
                 onNegative={() => setOpenDeleteConfirmationModal(false)}
             />
 
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {offers.map(({ title, name, email, min_capacity, maxPersons, county, city, address, description}, i) => (
+                {sharings.map(({ title, name, email, min_capacity, maxPersons, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
@@ -117,4 +117,4 @@ const AvailableOffers = () => {
     )
 }
 
-export default AvailableOffers
+export default AvailableSharings

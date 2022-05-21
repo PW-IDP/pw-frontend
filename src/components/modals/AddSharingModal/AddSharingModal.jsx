@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import useStyles from './styles';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const AddOfferModal = ({ openModal, onClose, residences, addOfferHandler }) => {
+const AddSharingModal = ({ openModal, onClose, residences, addSharingHandler }) => {
     const classes = useStyles();
     const [selectedResidence, setSelectedResidence] = useState('')
 
@@ -18,7 +18,7 @@ const AddOfferModal = ({ openModal, onClose, residences, addOfferHandler }) => {
         <Modal open={openModal} onClose={onClose} >
             <Box className={classes.modal} bgcolor='content.main' >
                 <Box className={classes.container}>
-                    <form onSubmit={handleSubmit((data) => addOfferHandler(data))}>
+                    <form onSubmit={handleSubmit((data) => addSharingHandler(data))}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6} key="title">
                                 <TextField
@@ -71,4 +71,4 @@ const AddOfferModal = ({ openModal, onClose, residences, addOfferHandler }) => {
     )
 }
 
-export default AddOfferModal
+export default AddSharingModal

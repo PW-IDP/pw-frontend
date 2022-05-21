@@ -23,8 +23,8 @@ const AdminWrapper = ({ children }) => {
             icon: Chart
         },
         {
-            name: 'Available Offers',
-            link: '/admin/available-offers',
+            name: 'Available Sharings',
+            link: '/admin/available-sharings',
             icon: Book
         }
     ]

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { base, routes } from '../../../../utils/api/routes';
 import OfferBox from '../../../OfferBox/OfferBox';
 import UserWrapper from '../../../../utils/UserWrapper'
-import AddOfferModal from '../../../modals/AddOfferModal/AddOfferModal';
+import AddSharingModal from '../../../modals/AddSharingModal/AddSharingModal';
 
 import useStyles from './styles';
 import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationModal';
@@ -68,7 +68,7 @@ const Home = () => {
     const classes = useStyles();
     const [myResidences, setMyResidences] = useState([])
     const [availableSharings, setAvailableSharings] = useState([])
-    const [myOffers, setMyOffers] = useState([])
+    const [mySharings, setMySharings] = useState([])
     const [selectedSharing, setSelectedSharing] = useState(undefined)
     const [openAddSharingModal, setOpenAddSharingModal] = useState(false);
     const [openAcceptConfirmationModal, setOpenAcceptConfirmationModal] = useState(false);
@@ -228,8 +228,6 @@ const Home = () => {
     }
 
     useEffect(() => {
-        // setOffers(mockOffers)
-        // setMyOffers(mockMyOffers)
         getAvailableOffers()
         getResidences()
     }, [])
@@ -237,11 +235,11 @@ const Home = () => {
     return (
         <UserWrapper>
             {alert && <Alert className={classes.popUpAlert} severity={alert.severity}><Typography>{alert.message}</Typography></Alert>}
-            <AddOfferModal
+            <AddSharingModal
                 openModal={openAddSharingModal}
                 onClose={() => setOpenAddSharingModal(false)}
                 residences={myResidences}
-                addOfferHandler={addSharing}
+                addSharingHandler={addSharing}
             />
             <AcceptSharingModal
                 openModal={openAcceptConfirmationModal}
@@ -304,7 +302,7 @@ const Home = () => {
                     ))}
                 </Box>) : 
                 (<Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {myOffers.map(({ sharing_id, title, name, email, min_capacity, max_capacity, county, city, address, description}, i) => (
+                {mySharings.map(({ sharing_id, title, name, email, min_capacity, max_capacity, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
