@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Add } from '@mui/icons-material';
-import { Box, Button } from '@mui/material'
+import { Alert, Box, Button, Typography } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
 import { base, routes } from '../../../../utils/api/routes';
 import UserWrapper from '../../../../utils/UserWrapper'
@@ -17,6 +17,7 @@ const MyResidences = () => {
     const [openDeleteConfirmationModal, setOpenDeleteConfirmationModal] = useState(false);
     const [openAddResidenceModal, setOpenAddResidenceModal] = useState(false);
     const { getAccessTokenSilently } = useAuth0();
+    const [alert, setAlert] = useState(undefined)
 
     const getResidences = useCallback(async () => {
         const accessToken = await getAccessTokenSilently();
@@ -55,13 +56,31 @@ const MyResidences = () => {
         fetch(`${base}${routes.residence.add}`, config)
         .then(function (response) {
             if (response.status === 201) {
-                console.log("SUCCESS:", "Residence Added")
-                setOpenAddResidenceModal(false)
+                setAlert({
+                    severity: 'success',
+                    message: "Residence Added Successfully!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
                 getResidences()
+            } else {
+                response.json().then(function ({ message }) {
+                    setAlert({
+                        severity: 'error',
+                        message: message
+                    })
+                    setTimeout(() => {
+                        setAlert(undefined)
+                    }, 3000);
+                })
             }
         })
         .catch(function (error) {
             console.log("ERROR:", error);
+        })
+        .finally(function () {
+            setOpenAddResidenceModal(false)
         });
     })
 
@@ -80,13 +99,28 @@ const MyResidences = () => {
         fetch(`${base}${routes.residence.delete}`, config)
         .then(function (response) {
             if (response.status === 200) {
-                console.log("SUCCESS:", "Residence Deleted")
-                setOpenDeleteConfirmationModal(false)
+                setAlert({
+                    severity: 'success',
+                    message: "Residence Deleted Successfully!"
+                })
+                setTimeout(() => {
+                    setAlert(undefined)
+                }, 3000);
                 getResidences()
             }
         })
         .catch(function (error) {
             console.log("ERROR:", error);
+            setAlert({
+                severity: 'error',
+                message: error
+            })
+            setTimeout(() => {
+                setAlert(undefined)
+            }, 3000);
+        })
+        .finally(function () {
+            setOpenDeleteConfirmationModal(false)
         });
     })
 
@@ -101,6 +135,7 @@ const MyResidences = () => {
 
     return (
         <UserWrapper>
+            {alert && <Alert className={classes.popUpAlert} severity={alert.severity}><Typography>{alert.message}</Typography></Alert>}
             <AddResidenceModal openModal={openAddResidenceModal} onClose={() => setOpenAddResidenceModal(false)} addResidenceHandler={addResidence}/>
             <ConfirmationModal
                 openModal={openDeleteConfirmationModal}
