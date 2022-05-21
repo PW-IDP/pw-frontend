@@ -4,8 +4,9 @@ export default makeStyles((theme) => ({
     container: {
         margin: 'auto',
         marginTop: theme.spacing(20),
-        height: 700,
         width: 200,
+        height: 700,
+        overflowY: 'auto',
         [theme.breakpoints.up('sm')]: {
             width: 250
         },
