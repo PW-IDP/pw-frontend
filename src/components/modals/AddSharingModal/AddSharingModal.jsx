@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import useStyles from './styles';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const AddSharingModal = ({ openModal, onClose, residences, addSharingHandler }) => {
+const AddSharingModal = ({ openModal, onClose, residences, sharings, addSharingHandler }) => {
     const classes = useStyles();
     const [selectedResidence, setSelectedResidence] = useState('')
 
@@ -13,6 +13,11 @@ const AddSharingModal = ({ openModal, onClose, residences, addSharingHandler }) 
 
     useEffect(() => {
     }, [])
+
+    const usedResidenceIds = sharings.map(({ residence_id }) => residence_id)
+    const availableResidences = residences
+                                    .filter(({ guest }) => guest === undefined)
+                                    .filter(({ residence_id }) => !usedResidenceIds.includes(residence_id))
 
     return (
         <Modal open={openModal} onClose={onClose} >
@@ -34,7 +39,7 @@ const AddSharingModal = ({ openModal, onClose, residences, addSharingHandler }) 
                                 <Box backgroundColor='#FFFFFF'>
                                     <TextField
                                         {...register("residence_id", { required: true })}
-                                        disabled={residences.length === 0}
+                                        disabled={availableResidences.length === 0}
                                         value={selectedResidence}
                                         onChange={(e) => {setSelectedResidence(e.target.value)}}
                                         select
@@ -42,7 +47,7 @@ const AddSharingModal = ({ openModal, onClose, residences, addSharingHandler }) 
                                         fullWidth
                                         inputProps={{ style: { backgroundColor: "#FFFFFF" } }}
                                     >
-                                        {residences.map(({residence_id, name}) => (
+                                        {availableResidences.map(({residence_id, name}) => (
                                         <MenuItem key={residence_id} value={residence_id}>
                                             {name}
                                         </MenuItem>))}

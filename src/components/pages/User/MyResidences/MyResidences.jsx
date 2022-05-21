@@ -131,6 +131,7 @@ const MyResidences = () => {
     useEffect(() => {
         getResidences()
     }, [])
+    console.log(myResidences)
 
     return (
         <UserWrapper>

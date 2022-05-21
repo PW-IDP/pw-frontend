@@ -113,6 +113,7 @@ const Home = () => {
                     setAlert(undefined)
                 }, 3000);
                 getResidences()
+                getMySharings()
             } else {
                 response.json().then(function ({ message }) {
                     setAlert({
@@ -241,6 +242,7 @@ const Home = () => {
                 openModal={openAddSharingModal}
                 onClose={() => setOpenAddSharingModal(false)}
                 residences={myResidences}
+                sharings={mySharings}
                 addSharingHandler={addSharing}
             />
             <AcceptSharingModal
