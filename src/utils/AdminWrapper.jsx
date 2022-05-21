@@ -6,6 +6,7 @@ import { authSettings } from "../common/AuthSettings";
 import NavMenu from "./NavMenu/NavMenu";
 import Group from "../assets/clarity_users-solid.svg"
 import Chart from "../assets/uil_chart-growth.svg"
+import Book from "../assets/ant-design_book-filled.svg"
 
 import useStyles from './styles';
 
@@ -22,9 +23,9 @@ const AdminWrapper = ({ children }) => {
             icon: Chart
         },
         {
-            name: 'Users',
-            link: '/admin/users',
-            icon: Group
+            name: 'Available Offers',
+            link: '/admin/available-offers',
+            icon: Book
         }
     ]
   
