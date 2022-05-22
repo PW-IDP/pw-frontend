@@ -9,60 +9,6 @@ import AdminWrapper from '../../../../utils/AdminWrapper';
 import { base, routes } from '../../../../utils/api/routes';
 import { authSettings } from '../../../../common/AuthSettings';
 
-const mockOffers = [{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-}, {
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-}, {
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},{
-    'title': 'Offer title',
-    'name': 'FirstName LastName',
-    'email': 'email@mail.com',
-    'min_capacity': 3,
-    'maxPersons': 5,
-    'county': 'Constanta',
-    'city': 'Mangalia',
-    'address': 'St. Xyz, no. 123, Bl. Q2, Ap. 12',
-    'description': 'The apartment is located in the center, being about 800 meters by the sea and surrounded by various hypermarkets where you can supply at a very acceptable price.'
-},
-]
-
-
 const AvailableSharings = () => {
     const classes = useStyles();
     const [availableSharings, setAvailableSharings] = useState([])
@@ -140,7 +86,7 @@ const AvailableSharings = () => {
         });
     })
     useEffect(() => {
-        getAvailableSharings(mockOffers)
+        getAvailableSharings()
     }, [])
 
     const deleteConfirmation = (id) => {
@@ -163,12 +109,12 @@ const AvailableSharings = () => {
             />
 
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {availableSharings.map(({ sharing_id, title, name, email, min_capacity, maxPersons, county, city, address, description}, i) => (
+                {availableSharings.map(({ sharing_id, title, name, email, min_capacity, max_capacity, county, city, address, description}, i) => (
                     <OfferBox key={`${i}_${title}`}
                         title={title}
                         name={name}
                         email={email}
-                        persons={[min_capacity, maxPersons]}
+                        persons={[min_capacity, max_capacity]}
                         county={county}
                         city={city}
                         address={address}
