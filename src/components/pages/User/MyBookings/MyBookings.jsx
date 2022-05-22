@@ -10,7 +10,7 @@ import ConfirmationModal from '../../../modals/ConfirmationModal/ConfirmationMod
 
 const Home = () => {
     const classes = useStyles();
-    const [bookings, setBookings] = useState([])
+    const [myBookings, setMyBookings] = useState([])
     const [selectedSharing, setSelectedSharing] = useState(undefined)
     const [openConfirmationModal, setOpenLeaveConfirmationModal] = useState(false);
     const { getAccessTokenSilently } = useAuth0();
@@ -29,8 +29,8 @@ const Home = () => {
         .then(function (response) {
             if (response.status === 200) {
                 response.json().then(function ({ bookings }) {
-                    const x = bookings.sort((a, b) => (b.end_datetime === undefined) - (a.end_datetime === undefined))
-                    setBookings(bookings);
+                    const sortedBookings = bookings.sort((a, b) => (b.end_datetime === undefined) - (a.end_datetime === undefined))
+                    setMyBookings(sortedBookings);
                 })
             }
         })
@@ -103,7 +103,7 @@ const Home = () => {
                 onNegative={() => setOpenLeaveConfirmationModal(false)}
             />
             <Box className={classes.container} bgcolor="contentBackground.main" sx={{p: 5}}>
-                {bookings.map(({ sharing_id, title, name, email, minPersons, maxPersons, county, city, address, description, start_datetime, end_datetime}, i) => (
+                {myBookings.map(({ sharing_id, title, name, email, minPersons, maxPersons, county, city, address, description, start_datetime, end_datetime}, i) => (
                     end_datetime ?
                     <OfferBox key={`${i}_${title}`}
                         title={title}

@@ -13,23 +13,5 @@ export default makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             width: 500
         },
-        [theme.breakpoints.up('lg')]: {
-            width: 800,
-        },
-        [theme.breakpoints.up('xl')]: {
-            width: 1000,
-        }
     },
-    hostsTop: {
-        margin: 'auto',
-        width: 200,
-        [theme.breakpoints.up('lg')]: {
-            width: 300,
-        },
-        [theme.breakpoints.up('xl')]: {
-            width: 400,
-        },
-        height: 500,
-
-    }
 }));

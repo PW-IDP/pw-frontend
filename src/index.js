@@ -15,7 +15,7 @@ root.render(
       redirectUri={`${window.location.origin}/save-profile`}
       // redirectUri={window.location.origin}
       audience={authSettings.audience}
-      // scope="project:admin"
+      scope="project:admin"
     >
       <App />
     </Auth0Provider>
