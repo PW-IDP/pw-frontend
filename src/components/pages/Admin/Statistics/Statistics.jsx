@@ -7,12 +7,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import useStyles from './styles';
 import AdminWrapper from '../../../../utils/AdminWrapper';
+import { authSettings } from '../../../../common/AuthSettings';
 
 const Statistics = () => {
     const classes = useStyles();
-
-    const [mock, setMock] = useState("NaN")
-
 
     const [sharingStatistics, setSharingStatistics] = useState([])
     const [residenceStatistics, setResidenceStatistics] = useState([])
@@ -33,7 +31,10 @@ const Statistics = () => {
     const { getAccessTokenSilently } = useAuth0();
 
     const getSharingStatistics = useCallback(async () => {
-        const accessToken = await getAccessTokenSilently();
+        const accessToken = await getAccessTokenSilently({
+            audience: authSettings.audience,
+            scope: 'project:admin'
+        });
         const config = {
             method: 'GET',
             headers: {
@@ -56,7 +57,10 @@ const Statistics = () => {
     })
 
     const getResidenceStatistics = useCallback(async () => {
-        const accessToken = await getAccessTokenSilently();
+        const accessToken = await getAccessTokenSilently({
+            audience: authSettings.audience,
+            scope: 'project:admin'
+        });
         const config = {
             method: 'GET',
             headers: {

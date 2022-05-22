@@ -6,22 +6,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import useStyles from './styles';
 import stringToDate from '../../../../utils/common/utils';
-import { authSettings } from '../../../../common/AuthSettings';
-
-const mockStatistics = {
-
-}
 
 const Home = () => {
     const classes = useStyles();
-
-    const [myTotalOffers, setMyTotalOffers] = useState("NaN")
-    const [myAcceptedOffers, setMyAcceptedOffers] = useState("NaN")
-    const [aaaaaaaaaaaaaaaaa, setMyFreeOffers] = useState("NaN")
-
-
-
-
 
     const [sharingStatistics, setSharingStatistics] = useState([])
     const [myBookings, setMyBookings] = useState([])
@@ -44,10 +31,7 @@ const Home = () => {
     const { getAccessTokenSilently } = useAuth0();
 
     const getResidences = useCallback(async () => {
-        const accessToken = await getAccessTokenSilently({
-            audience: authSettings.audience,
-            scope: 'project:admin'
-        });
+        const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'GET',
             headers: {
@@ -69,10 +53,7 @@ const Home = () => {
     })
 
     const getSharingStatistics = useCallback(async () => {
-        const accessToken = await getAccessTokenSilently({
-            audience: authSettings.audience,
-            scope: 'project:admin'
-        });
+        const accessToken = await getAccessTokenSilently();
         const config = {
             method: 'GET',
             headers: {

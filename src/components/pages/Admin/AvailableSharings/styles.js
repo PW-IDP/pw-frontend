@@ -20,17 +20,21 @@ export default makeStyles((theme) => ({
             width: 750,
         }
     },
+    popUpAlert: {
+        position: 'fixed',
+        top: 24,
+        right: 24,
+        width: 200,
+        zIndex: 1000,
+        [theme.breakpoints.up('md')]: {
+            width: 400,
+        },
+        "& .MuiAlert-icon": {
+          fontSize: 32
+        }
+    },
     navButton: {
         width: 80,
         height: 40,
     },
-    addButtonContainer: {
-        position: 'fixed',
-        bottom: 100,
-        right: 100,
-    },
-    addButton: {
-        width: 100,
-        height: 100,
-    }
 }));
